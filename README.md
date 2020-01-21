@@ -1,4 +1,4 @@
-# hello-world
+# ITM 352 Spring 20
 E0-MIS Portfolio Repository 
 
 Hi Everyone! 
