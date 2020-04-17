@@ -1,0 +1,106 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Poke Shop Home</title>
+  <style>
+    /* Sources: SmartPhoneProducts WOD*/
+    img {
+      border: 1px solid #ddd;
+      /* Gray border */
+      border-radius: 4px;
+      /* Rounded border */
+      padding: 5px;
+      /* Some padding */
+      width: 5px;
+      /* Set a small width */
+    }
+
+    /* Add a hover effect (blue shadow) */
+    img:hover {
+      box-shadow: 0 0 5px 5px black;
+    }
+  </style>
+  <link href="product_style.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Tomorrow' rel='stylesheet'>
+</head>
+
+<body>
+
+  <header>
+    <h1>JK's Flower Shop</h1>
+  </header>
+  <ul>
+    <li><a class="active" href="./index.html">Home</a></li>
+    <li><a href="./products_page.html">Shop</a></li>
+  </ul>
+  <a href="./products_page.html">
+
+    <div class="slideshow-container">
+
+      <div class="mySlides">
+        <img src="./images/PokeBall.png" style="width:100%">
+        <div class="text">Rose</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/GreatBall.png" style="width:100%">
+        <div class="text">Tiger Lilly</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/UltraBall.png" style="width:100%">
+        <div class="text">Daisy</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/MasterBall.png" style="width:100%">
+        <div class="text">Orchid</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/PokeBallsCombo.png" style="width:100%">
+        <div class="text">Gardenia</div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+    <script>
+      var slideIndex = 0;
+      showSlides();
+
+      function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1 }
+        for (i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+        setTimeout(showSlides, 1000); // Change image every 1 seconds
+      }
+    </script>
+    <footer>
+      <h1>
+        Stop & Smell the Flowers :) 
+      </h1>
+    </footer>
+</body>
+
+</html>
