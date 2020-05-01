@@ -12,7 +12,7 @@ table{
 .item img {
     width: 200px;
     height: 200px; 
-    background-color: rgb(255, 111, 159);
+    background-color: rgb(199, 0, 0);
     border: 3px solid black;
 }
 
@@ -46,7 +46,7 @@ main {
 
 
 header,footer {
-    background-color: palevioletred;
+    background-color: rgb(209, 0, 0);
     border: 3px solid black;
 }
 
@@ -94,11 +94,11 @@ th, td {
 tr:nth-child(even){background-color: palegoldenrod}
 
 th {
-  background-color: palevioletred;
+  background-color:  rgb(209, 0, 0);
   color: white;
 }  
 
-/*All css below this is for SLIDESHOW on home page, from w3schools*/
+/*All the following css below is for the SLIDESHOW on home page, Referred to w3schools*/
 * {box-sizing: border-box;}
 .mySlides {display: none;}
 img {vertical-align: middle;}
@@ -126,4 +126,4 @@ img {vertical-align: middle;}
     border: 3px solid black;
 }
 
-/* Sources: SmartPhoneProducts, w3schools */
+/* Resources Used: SmartPhoneProducts, w3schools */

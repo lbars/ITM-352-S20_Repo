@@ -39,14 +39,14 @@
             if (has_errors) {
                 alert("Please enter only valid quantities.");
             } else if (total_qty == 0) { //alert for no quantities chosen
-                alert("Please select some quantities for the items you want to purchase.");
+                alert("Please select quantities for the items you would like to purchase.");
             } else { // redirecting to invoice when quantities are valid
                 window.location = `./invoice.html${document.location.search}`;
                 window.stop;
             }
         }
     }
-// Sources: SmartPhoneProducts, Lab13, Assignment 1 example
+// Resources Used: SmartPhoneProducts, Lab13, Assignment 1 example
 
 </script>
 <!DOCTYPE html>
@@ -54,7 +54,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>JK's Flowers</title>
+    <title>JK's Vinyl Records</title>
     <link href="product-style.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Tomorrow' rel='stylesheet'>
 </head>
@@ -62,11 +62,11 @@
 <body>
     <form name="product_selection_form" action="process_page" method="GET">
         <header>
-            <h1>JK's Flower Shop</h1>
+            <h1>JK's Vinyl Record Shop</h1>
         </header>
         <ul>
             <li><a class="active" href="./index.html">Home</a></li>
-            <li><a href="./products_page.html">Shop</a></li>
+            <li><a href="./products_page.html">Shop For Records</a></li>
         </ul>
         <div class="productsbox">
             <main>
