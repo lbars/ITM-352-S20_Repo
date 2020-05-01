@@ -3,7 +3,7 @@
 const querystring = require('querystring');
 var express = require('express'); //code for server
 var myParser = require("body-parser"); //code for server
-var products = require("./public/product_data.js"); //accessing data from javascript file
+var products = require("./public/products_data.js"); //accessing data from javascript file
 var filename = 'user_data.json' //defines the array as an object 
 var app = express();
 app.all('*', function (request, response, next) {
@@ -78,17 +78,17 @@ app.get("/login.html", function (request, response) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JK's Vinyl Record Shop Login</title>
 
-    <link href="product_style.css" rel="stylesheet">
+    <link href="products_style.css" rel="stylesheet">
 </head>
 
 <body>
     <!--the following code is for the navigation bar-->
     <ul>
             <li><a href="./index.html">Home</a></li>
-            <li><a href="./product_page.html">Records</a></li>
+            <li><a href="./products_page.html">Records</a></li>
             <li><a class="active" href="./login.html">Log In</a></li>
     </ul>
-    <div style="margin-left:25%;padding:1px 16px;height:1000px;">
+    <div style="margin-left:50%;padding:1px 16px;height:1000px;">
         <h1>Jk's Vinyl Record Shop</h1>
         <h2> Log In To Continue Your Purchase!</h2>
         <form name="loginform" method="POST">
@@ -145,14 +145,14 @@ app.get("/registration.html", function (request, response) {
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
        <meta http-equiv="X-UA-Compatible" content="ie=edge">
        <title>Customer Registration</title>
-       <link href = "product_style.css" rel="stylesheet">
+       <link href = "products_style.css" rel="stylesheet">
        <script>src ="server.js"</script>
    </head>
    <body>
    <!--the following code is for the navigation bar-->
    <ul>
        <li><a href="./index.html">Home</a></li>
-       <li><a href="./product_page.html">Records</a></li>
+       <li><a href="./products_page.html">Records</a></li>
        <li><a href="./login.html">Log In</a></li>
    </ul>
 
