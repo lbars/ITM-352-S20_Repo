@@ -17,7 +17,7 @@ var recordquantity = {};
 app.use(myParser.urlencoded({ extended: true }));
 
 //go to invoice if quantity values are good, if not, redirect back to order page 
-app.get("/products_page", function (request, response) {
+app.get("/process_page", function (request, response) {
    //check for valid quantities
    //look up request.query
    recordquantity = request.query;
@@ -42,6 +42,7 @@ app.get("/products_page", function (request, response) {
          qstr = querystring.stringify(request.query);
          response.redirect("products_page.html?" + qstr);
       } else { //the quantity data is okay for the invoice
+         qstr = querystring.stringify(request.query);
          response.redirect("login.html?" + qstr);
       }
    }
