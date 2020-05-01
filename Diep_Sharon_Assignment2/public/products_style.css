@@ -1,6 +1,6 @@
 /* General */
 body {
-    width: 400px;
+    width: 200px;
     margin: 0 auto;
 }
 
@@ -10,8 +10,8 @@ table{
 
 /* Styling the products display*/
 .item img {
-    width: 200px;
-    height: 200px; 
+    width: 100px;
+    height: 100px; 
     background-color: rgb(199, 0, 0);
     border: 3px solid black;
 }
@@ -53,10 +53,10 @@ header,footer {
 input[type=submit] {
   width: 10em;  height: 2em;
   font-size: 20px;
-  margin-left: 25%
+  margin-left: 50%
 }
 
-/*Nav Bar on Home Page*/
+/*Navigation Bar on Home Page*/
 ul {
     list-style-type: none;
     margin: 0;
@@ -87,7 +87,7 @@ table {
 }
 
 th, td {
-  text-align: left;
+  text-align: center;
   padding: 8px;
 }
 
@@ -95,7 +95,7 @@ tr:nth-child(even){background-color: palegoldenrod}
 
 th {
   background-color:  rgb(209, 0, 0);
-  color: white;
+  color: rgb(0, 0, 0);
 }  
 
 /*All the following css below is for the SLIDESHOW on home page, Referred to w3schools*/
@@ -113,7 +113,7 @@ img {vertical-align: middle;}
 /* Caption text */
 .text {
   color: #f2f2f2;
-  font-size: 15px;
+  font-size: 20px;
   padding: 8px 12px;
   position:absolute;
   bottom: 10px;
