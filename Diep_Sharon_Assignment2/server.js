@@ -40,10 +40,10 @@ app.get("/process_page", function (request, response) {
       if (has_errors || total_qty == 0) {
          //redirect to products page if quantity data is invalid
          qstr = querystring.stringify(request.query);
-         response.redirect("products_page.html?" + qstr);
+         response.redirect("/products_page.html?" + qstr);
       } else { //the quantity data is okay for the invoice
          qstr = querystring.stringify(request.query);
-         response.redirect("login.html?" + qstr);
+         response.redirect("/login.html?" + qstr);
       }
    }
 });
@@ -130,7 +130,7 @@ app.post("/login.html", function (request, response) {
          response.redirect('/invoice.html?');
        
       } else {
-         response.redirect('./login.html?')
+         response.redirect('/login.html?')
          
       }
    }
