@@ -5,7 +5,7 @@ body {
 }
 
 table{
-    background-image: url()
+    background-image: url(images/Background4.png)
  }
 
 /* Styling the products display*/
@@ -51,7 +51,7 @@ header,footer {
 }
 
 input[type=submit] {
-  width: 10em;  height: 2em;
+  width: 10em;  height: 4em;
   font-size: 20px;
   margin-left: 50%
 }
@@ -105,7 +105,7 @@ img {vertical-align: middle;}
 
 /* Slideshow container */
 .slideshow-container {
-  max-width: 1000px;
+  max-width: 100px;
   position: relative;
   margin: auto;
 }

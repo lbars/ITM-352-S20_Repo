@@ -17,7 +17,7 @@ var recordquantity = {};
 app.use(myParser.urlencoded({ extended: true }));
 
 //go to invoice if quantity values are good, if not, redirect back to order page 
-app.get("/process_page", function (request, response) {
+app.get("/products_page", function (request, response) {
    //check for valid quantities
    //look up request.query
    recordquantity = request.query;
@@ -126,7 +126,7 @@ app.post("/login.html", function (request, response) {
       if (users_reg_data[the_username].password == request.body.password) {
          //make the query string of prod quant needed for invoice
          theQuantQuerystring = qs.stringify(recordquantity);
-         response.redirect(theQuantQuerystring + `&username=${the_username}`);
+         response.redirect('/invoice.html?');
        
       } else {
          response.redirect('./login.html?')
@@ -197,7 +197,7 @@ app.post("/registration.html", function (request, response) {
 
       theQuantQuerystring = qs.stringify(recordquantity);
       fs.writeFileSync(filename, JSON.stringify(users_reg_data));
-      response.redirect(theQuantQuerystring + `&username=${the_username}`);
+      response.redirect('/invoice.html?');
 
    }
 });
