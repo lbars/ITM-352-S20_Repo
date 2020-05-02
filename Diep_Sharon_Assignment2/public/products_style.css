@@ -3,6 +3,19 @@ body {
     width: 200px;
     margin: 0 auto;
 }
+h1 {
+  font-size: 60px;
+  color: darkolivegreen;
+}
+
+h2 {
+  font-size: 30px;
+  color: rgb(139, 0, 0);
+}
+
+h3 {
+  font-size: 25px;
+}
 
 table{
     background-image: url(images/Background4.png)

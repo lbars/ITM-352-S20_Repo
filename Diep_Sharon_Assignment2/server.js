@@ -3,7 +3,7 @@
 const querystring = require('querystring');
 var express = require('express'); //code for server
 var myParser = require("body-parser"); //code for server
-var products = require("./public/products_data.js"); //accessing data from javascript file
+var products = require("./public/product_data.js"); //accessing data from javascript file
 var filename = 'user_data.json' //defines the array as an object 
 var app = express();
 app.all('*', function (request, response, next) {
