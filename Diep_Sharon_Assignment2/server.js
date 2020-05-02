@@ -47,7 +47,7 @@ app.get("/process_page", function (request, response) {
       }
    }
 });
-//if quantity data valid, send them to the invoice
+//if quantity data valid, send them to the login page
 
 function isNonNegInt(q, returnErrors = false) {
    errors = []; // assume that quantity data is valid 
