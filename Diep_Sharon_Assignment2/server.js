@@ -1,10 +1,22 @@
+//isNonNegInt function was drawn from Lab 13
+function isNonNegInt(q, returnErrors = false) {
+   errors = []; // assume that quantity data is valid 
+   if (q == "") { q = 0; } //this means that the blank values will be handle as if they were 0
+   if (Number(q) != q) errors.push('<font color="red">This is Not a Number!</font>'); //check if value is a number
+   if (q < 0) errors.push('<font color="red">This is a Negative Value!</font>'); //check if value is a positive number
+   if (parseInt(q) != q) errors.push('<font color="red">This is Not an Integer!</font>'); //check if value is a whole number
+   return returnErrors ? errors : (errors.length == 0);
+}
+
 //The following code allows for server side processing.
 //Resources Used: Lab 13
 const querystring = require('querystring');
 var express = require('express'); //code for server
 var myParser = require("body-parser"); //code for server
+var data = require(`public/product_data.js`);
 var products = require("./public/product_data.js"); //accessing data from javascript file
 var filename = 'user_data.json' //defines the array as an object 
+var fs = require('fs'); //pulls data from product_data.js
 var app = express();
 app.all('*', function (request, response, next) {
    console.log(request.method + ' to ' + request.path);
@@ -14,9 +26,19 @@ var qstr = {};
 var recordquantity = {};
 });
 
+if (fs.existsSync(filename)) {
+   stats = fs.statSync(filename) //this gets stats from the filename 
+   data = fs.readFileSync(filename,'UTF-8');
+   console.log(typeof data);
+   users_reg_data = JSON.parse(data);
+
+   console.log(`${filename} has ${stats.size} characters`);
+} else {
+   console.log("Hey!" + filename + "doesn't exist!")
+}
+
 app.use(myParser.urlencoded({ extended: true }));
 
-//go to invoice if quantity values are good, if not, redirect back to order page 
 app.get("/process_page", function (request, response) {
    //check for valid quantities
    //look up request.query
@@ -48,10 +70,10 @@ app.get("/process_page", function (request, response) {
    }
 });
 //if quantity data valid, send them to the login page
-
+//isNonNegInt function was drawn from Lab 13
 function isNonNegInt(q, returnErrors = false) {
    errors = []; // assume that quantity data is valid 
-   if (q == "") { q = 0; }
+   if (q == "") { q = 0; } //this means that the blank values will be handle as if they were 0
    if (Number(q) != q) errors.push('This is Not a Number!'); //check if value is a number
    if (q < 0) errors.push('This is a Negative Value!'); //check if value is a positive number
    if (parseInt(q) != q) errors.push('This is Not an Integer!'); //check if value is a whole number
@@ -69,7 +91,7 @@ if (fs.existsSync(filename)) {
 }
 
 //go to login page 
-app.get("/login.html", function (request, response) {
+app.get("/check_login", function (request, response) {
    str = `
    <html lang="en">
 
@@ -116,7 +138,7 @@ app.get("/login.html", function (request, response) {
    response.send(str);
 });
 
-app.post("/login.html", function (request, response) {
+app.post("/check_login", function (request, response) {
    // Process login form POST and redirect to logged in page if ok, back to login page if not
    console.log(recordquantity);
    the_username = request.body.username;
@@ -138,7 +160,6 @@ app.post("/login.html", function (request, response) {
 
 app.get("/registration.html", function (request, response) {
    // Give a simple registration form
-
    str = `
    <html lang="en">
    <head>
@@ -159,7 +180,7 @@ app.get("/registration.html", function (request, response) {
 
    <div style="margin-left:25%;padding:1px 16px;height:1000px;">
            <div>
-                   <form  method="POST" action="" onsubmit=validatePassword() >
+                   <form method="POST" action="" onsubmit=validatePassword() >
                      <input type="text" name="fullname" size="40" pattern="[a-zA-Z]+[ ]+[a-zA-Z]+" maxlength="30" placeholder="Enter First & Last Name"><br />
                      <input type="text" name="username" size="40" pattern=".[a-z0-9]{3,10}" required title="Minimum 4 Characters, Maximum 10 Characters, Numbers/Letters Only" placeholder="Enter Username" ><br />
                      <input type="email" name="email" size="40" placeholder="Enter Email" pattern="[a-z0-9._]+@[a-z0-9]+\.[a-z]{3,}$" required title="Please enter valid email."><br />

@@ -1,0 +1,142 @@
+/* General */
+body {
+    width: 200px;
+    margin: 0 auto;
+}
+h1 {
+  font-size: 60px;
+  color: darkolivegreen;
+}
+
+h2 {
+  font-size: 30px;
+  color: rgb(139, 0, 0);
+}
+
+h3 {
+  font-size: 25px;
+}
+
+table{
+    background-image: url(images/Background4.png)
+ }
+
+/* Styling the products display*/
+.item img {
+    width: 100px;
+    height: 100px; 
+    background-color: rgb(199, 0, 0);
+    border: 3px solid black;
+}
+
+/* Typography */
+h1, h2, p, label, td, th, li, .text {
+    color: white;
+    text-shadow: 
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+    text-align: center;
+    font-family: 'Tomorrow';
+    
+}
+
+/*  Form styling */
+main {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    background: url(); 
+    background-repeat: repeat; 
+    background-position: right;
+}
+  /* block styling */
+  .productsbox {
+    border: 3px solid black;
+    display: flex;
+  }
+
+
+header,footer {
+    background-color: rgb(209, 0, 0);
+    border: 3px solid black;
+}
+
+input[type=submit] {
+  width: 10em;  height: 4em;
+  font-size: 20px;
+  margin-left: 50%
+}
+
+/*Navigation Bar on Home Page*/
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+  li {
+    float: left;
+  }
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  li a:hover {
+    background-color: #111;
+  }
+
+/*Invoice Table*/
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: palegoldenrod}
+
+th {
+  background-color:  rgb(209, 0, 0);
+  color: rgb(0, 0, 0);
+}  
+
+/*All the following css below is for the SLIDESHOW on home page, Referred to w3schools*/
+* {box-sizing: border-box;}
+.mySlides {display: none;}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 100px;
+  position: relative;
+  margin: auto;
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 20px;
+  padding: 8px 12px;
+  position:absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.mySlides {
+    background-image: url();
+    border: 3px solid black;
+}
+
+/* Resources Used: SmartPhoneProducts, w3schools */
