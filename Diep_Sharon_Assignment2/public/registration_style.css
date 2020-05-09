@@ -36,7 +36,7 @@ header {
     h1 {
       font-weight: 900;
       letter-spacing: 1.5px;
-      color: #333;
+      color: rgb(0, 0, 0);
       font-size: 23px;
       text-transform: uppercase;
       margin: 0;
@@ -44,7 +44,7 @@ header {
     
     p {
       word-spacing: 0px;
-      color: rgb(159, 172, 182); 
+      color: rgb(255, 255, 255); 
       font-size: 17px;
       margin: 0;
       margin-top: 5px;
@@ -77,11 +77,11 @@ header {
     }
 
       input {
-        background-color: rgb(233, 226, 192);
+        background-color: rgb(85, 107, 47);
       }
       
       span {
-        background-color: rgb(233, 226, 192);
+        background-color: rgb(85, 107, 47);
       }
     
     .folded + .folded {
@@ -93,11 +93,11 @@ header {
     }
 
       input {
-        background-color: rgb(239, 236, 188);
+        background-color: rgb(85, 107, 47);
       }
       
       span {
-        background-color: rgb(168, 3, 3);
+        background-color: rgb(85, 107, 47);
       }
     
     .fold-up {
@@ -118,13 +118,13 @@ header {
     }
     
     .placeholder {
-      color: rgb(216, 0, 0);
+      color: rgb(85, 107, 47);
       font-weight: 100;
     }
 
 .animated-button {
   width: 20%;
-  background-color: rgb(179, 0, 0);
+  background-color: rgb(0, 0, 0);
 }
 
   span {
@@ -140,12 +140,12 @@ header {
 
     i {
       font-size: 25px;
-      color: rgb(153, 153, 248);
+      color: rgb(85, 107, 47);
     }
   
   .next-button {
     background: transparent;
-    color: rgb(153, 153, 248);
+    color: rgb(0, 0, 29);
     font-weight: 100;
     width: 100%;
     border: 0;
