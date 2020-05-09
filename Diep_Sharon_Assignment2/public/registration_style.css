@@ -105,8 +105,8 @@ header {
     }
   
   form input {
-    background: lighten(rgb(254, 255, 210), 5%);
-    color: rgb(246, 250, 209);
+    background: lighten(rgb(85, 107, 47), 5%);
+    color: rgb(85, 107, 47);
     width: 80%;
     border: 0;
     padding: 20px 40px;
