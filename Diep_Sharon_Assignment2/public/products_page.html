@@ -40,10 +40,7 @@
                 alert("Please enter only valid quantities.");
             } else if (total_qty == 0) { //alert for no quantities chosen
                 alert("Please select quantities for the items you would like to purchase.");
-            } else { // redirecting to invoice when quantities are valid
-                window.location = `./invoice.html${document.location.search}`;
-                window.stop;
-            }
+            } 
         }
     }
 // Resources Used: SmartPhoneProducts, Lab13, Assignment 1 example
@@ -60,7 +57,7 @@
 </head>
 
 <body>
-    <form name="product_selection_form" action="process_page" method="GET">
+    <form name="product_selection_form" action="process_page" method="POST">
         <header>
             <h1>JK's Vinyl Record Shop</h1>
         </header>
@@ -69,7 +66,7 @@
             <li><a class="active" href="./products_page.html">Shop For Records</a></li>
             <li><a href="./login.html">Log In</a></li>
         </ul>
-        <div class="productsbox">
+        <div class="productsbox"> 
             <main>
                 <script>
                     for (i = 0; i < products.length; i++) {

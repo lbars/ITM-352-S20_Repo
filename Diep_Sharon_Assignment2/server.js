@@ -13,17 +13,16 @@ function isNonNegInt(q, returnErrors = false) {
 const querystring = require('querystring');
 var express = require('express'); //code for server
 var myParser = require("body-parser"); //code for server
-var data = require(`public/product_data.js`);
-var products = require("./public/product_data.js"); //accessing data from javascript file
+var products = require("./public/product_data.js").products; //accessing data from javascript file
 var filename = 'user_data.json' //defines the array as an object 
 var fs = require('fs'); //pulls data from product_data.js
 var app = express();
-app.all('*', function (request, response, next) {
-   console.log(request.method + ' to ' + request.path);
-   next();
 var qs = require('querystring');
 var qstr = {};
 var recordquantity = {};
+app.all('*', function (request, response, next) {
+   console.log(request.method + ' to ' + request.path);
+   next();
 });
 
 if (fs.existsSync(filename)) {
@@ -39,16 +38,16 @@ if (fs.existsSync(filename)) {
 
 app.use(myParser.urlencoded({ extended: true }));
 
-app.get("/process_page", function (request, response) {
+app.post("/process_page", function (request, response) {
    //check for valid quantities
    //look up request.query
-   recordquantity = request.query;
-   params = request.query;
-   console.log(params);
+   console.log(request.body); 
+   var params = request.body;
    if (typeof params['purchase_submit'] != 'undefined') {
       has_errors = false; // assume that quantity values are valid
       total_qty = 0; // check if there are values in the first place, so see if total > 0
       for (i = 0; i < products.length; i++) {
+         console.log(i, params[`quantity${i}`]);
          if (typeof params[`quantity${i}`] != 'undefined') {
             a_qty = params[`quantity${i}`];
             total_qty += a_qty;
@@ -57,14 +56,14 @@ app.get("/process_page", function (request, response) {
             }
          }
       }
-      qstr = querystring.stringify(request.query);
+      qstr = querystring.stringify(request.body);
       // redirect to invoice if quantity data is valid or respond to invalid data
       if (has_errors || total_qty == 0) {
          //redirect to products page if quantity data is invalid
-         qstr = querystring.stringify(request.query);
+         console.log("going to products page", has_errors, total_qty);
          response.redirect("/products_page.html?" + qstr);
       } else { //the quantity data is okay for the invoice
-         qstr = querystring.stringify(request.query);
+         console.log("going to login page");
          response.redirect("/login.html?" + qstr);
       }
    }
@@ -90,97 +89,29 @@ if (fs.existsSync(filename)) {
    users_reg_data = JSON.parse(data);
 }
 
-//go to login page 
-app.get("/check_login", function (request, response) {
-   str = `
-   <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JK's Vinyl Record Shop Login</title>
-
-    <link href="products_style.css" rel="stylesheet">
-</head>
-
-<body>
-    <!--the following code is for the navigation bar-->
-    <ul>
-            <li><a href="./index.html">Home</a></li>
-            <li><a href="./products_page.html">Records</a></li>
-            <li><a class="active" href="./login.html">Log In</a></li>
-    </ul>
-    <div style="margin-left:50%;padding:1px 16px;height:1000px;">
-        <h1>Jk's Vinyl Record Shop</h1>
-        <h2> Log In To Continue Your Purchase!</h2>
-        <form name="loginform" method="POST">
-            <div>
-                <input type="text" name="username" size="40" placeholder="enter username"><br />
-                <input type="password" name="password" size="40" placeholder="enter password"><br />
-                <input type="submit" value="login" id="submit"> </div>
-        </form>
-</body>
-   
-<h2>Don't Have An Account? Create One Below!</h2>
-
-<body>
-    <div>
-        <form action="./registration.html">
-        <input type="submit" class="button" value="Create Account Here" id="regpage" name="register_here">
-        </form>
-    </div>
-    
-    </body>
-
-    </html>
-`;
-   response.send(str);
-});
-
 app.post("/check_login", function (request, response) {
    // Process login form POST and redirect to logged in page if ok, back to login page if not
-   console.log(recordquantity);
+   console.log(request.query, request.body);
    the_username = request.body.username;
-   console.log(the_username, "Username is", typeof (users_reg_data[the_username]));
+   console.log(the_username, "username is", typeof (users_reg_data[the_username]));
    //validate login data
+   theQuantQuerystring = qs.stringify(request.query);
    if (typeof users_reg_data[the_username] != 'undefined') {
       //To check if the username exists in the json data
       if (users_reg_data[the_username].password == request.body.password) {
          //make the query string of prod quant needed for invoice
-         theQuantQuerystring = qs.stringify(recordquantity);
-         response.redirect('/invoice.html?');
-       
-      } else {
-         response.redirect('/login.html?')
-         
+         response.redirect('/invoice.html?' + theQuantQuerystring);
+         return;
       }
    }
+   response.redirect('/login.html?' + theQuantQuerystring);
 });
 
-app.get("/registration.html", function (request, response) {
+app.post("/registration.html", function (request, response) {
    // Give a simple registration form
    str = `
-   <html lang="en">
-   <head>
-       <meta charset="UTF-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <meta http-equiv="X-UA-Compatible" content="ie=edge">
-       <title>Customer Registration</title>
-       <link href = "products_style.css" rel="stylesheet">
-       <script>src ="server.js"</script>
-   </head>
-   <body>
-   <!--the following code is for the navigation bar-->
-   <ul>
-       <li><a href="./index.html">Home</a></li>
-       <li><a href="./products_page.html">Records</a></li>
-       <li><a href="./login.html">Log In</a></li>
-   </ul>
-
-   <div style="margin-left:25%;padding:1px 16px;height:1000px;">
            <div>
-                   <form method="POST" action="" onsubmit=validatePassword() >
+                   <form method="POST" action="/register_user" onsubmit=validatePassword() >
                      <input type="text" name="fullname" size="40" pattern="[a-zA-Z]+[ ]+[a-zA-Z]+" maxlength="30" placeholder="Enter First & Last Name"><br />
                      <input type="text" name="username" size="40" pattern=".[a-z0-9]{3,10}" required title="Minimum 4 Characters, Maximum 10 Characters, Numbers/Letters Only" placeholder="Enter Username" ><br />
                      <input type="email" name="email" size="40" placeholder="Enter Email" pattern="[a-z0-9._]+@[a-z0-9]+\.[a-z]{3,}$" required title="Please enter valid email."><br />
@@ -192,14 +123,14 @@ app.get("/registration.html", function (request, response) {
               
    </body>
    </html>`;
-   response.send(str);
+   response.send(str + theQuantQuerystring);
 });
 
-app.post("/registration.html", function (request, response) {
+app.post("/register_user", function (request, response) {
    // process a simple register form
-   console.log(recordquantity);
+   console.log(request.query, request.body);
    the_username = request.body.username;
-   console.log(the_username, "Username is", typeof (users_reg_data[the_username]));
+   console.log(the_username, "username is", typeof (users_reg_data[the_username]));
 
    username = request.body.username;//saves new user to file name (users_reg_data)
 
@@ -219,7 +150,7 @@ app.post("/registration.html", function (request, response) {
 
       theQuantQuerystring = qs.stringify(recordquantity);
       fs.writeFileSync(filename, JSON.stringify(users_reg_data));
-      response.redirect('/invoice.html?');
+      response.redirect('/invoice.html?' + theQuantQuerystring);
 
    }
 });
