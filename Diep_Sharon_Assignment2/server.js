@@ -155,7 +155,7 @@ app.all('*', function (request, response, next) {
    next();
 });
 
-app.use(express.static('./public'));
+app.use(express.static('./public' + '/user_data.json'));
 app.listen(8080, () => console.log(`listening on port 8080`));
 
 //Resources Used: Lab13 & Lab 14
