@@ -1,3 +1,6 @@
+//the following shows code for all the products
+//Author - Sharon Diep 
+
 var products = 
 [
     {

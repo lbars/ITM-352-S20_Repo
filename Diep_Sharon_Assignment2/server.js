@@ -17,7 +17,7 @@ var products = require("./public/product_data.js").products; //accessing data fr
 var filename = 'user_data.json' //defines the array as an object 
 var fs = require('fs'); //pulls data from product_data.js
 var app = express();
-var qs = require('querystring');
+var qs = require('querystring'); //for the quantities to be carried over
 var qstr = {};
 var recordquantity = {};
 app.all('*', function (request, response, next) {
@@ -104,8 +104,8 @@ app.post("/check_login", function (request, response) {
          return;
       }
    }
-   response.send(`${username} registered!`);
-   response.redirect('/login.html?' + theQuantQuerystring);
+   response.send(`${username} registered!`); 
+   response.redirect('/login.html?' + theQuantQuerystring); // redirects to the login page when login was invalid
 });
 
 app.post("/register_user", function (request, response) {
@@ -120,10 +120,10 @@ app.post("/register_user", function (request, response) {
 
    //Check if username is valid
    if (typeof users_reg_data[username] != 'undefined') {
-      errors.push("Username is Already Taken. Please Enter a Different Username.");
-      console.log(errors, users_reg_data);
+      errors.push("Username is Already Taken. Please Enter a Different Username."); // tells us in the terminal the errors
+      console.log(errors, users_reg_data); 
    } else {
-      users_reg_data[username] = {}; 
+      users_reg_data[username] = {}; // if there are no errors with username it is now valid 
    } 
    //check if password matches
    if (request["body"]["password"] != request["body"]["password"]) {
@@ -132,9 +132,9 @@ app.post("/register_user", function (request, response) {
       users_reg_data[username].password = request["body"]["password"];
    }
    request.query.error = errors;
-   theQuantQuerystring = qs.stringify(request.query);
+   theQuantQuerystring = qs.stringify(request.query); // define querystring variable
    console.log(theQuantQuerystring);
-   if (errors.length == 0) {
+   if (errors.length == 0) { // if there are no errors with the followin write the new data in data file
       users_reg_data[username] = {};
       users_reg_data[username].name = request.body.name;
       users_reg_data[username].password = request.body.password;
@@ -142,11 +142,11 @@ app.post("/register_user", function (request, response) {
    
       fs.writeFileSync(filename, JSON.stringify(users_reg_data));
       console.log(theQuantQuerystring, "going to invoice");
-      response.redirect('/invoice.html?' + theQuantQuerystring + `&username=${the_username}`);
+      response.redirect('/invoice.html?' + theQuantQuerystring + `&username=${the_username}`); // redirect the page to invoice if the registration was successful 
       return;
    } else {
       console.log(errors);
-      response.redirect(`/registration.html?` + theQuantQuerystring);
+      response.redirect(`/registration.html?` + theQuantQuerystring); // reboot the user to registration if not valid and keep the querystring of quantities 
    } 
 });
 

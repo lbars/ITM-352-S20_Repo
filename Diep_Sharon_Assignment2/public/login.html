@@ -19,6 +19,7 @@
     <div style="margin-left:25%;padding:1px 16px;height:1000px;">
         <h1>Jk's Vinyl Record Shop</h1>
         <h2> Log In To Continue Your Purchase!</h2>
+        <!--the following code is the form for the login page-->
         <form name="loginform" method="POST" action="/check_login">
             <div>
                 <input type="text" name="username" size="40" placeholder="enter username"><br />
@@ -30,10 +31,12 @@
 <h2>Don't Have An Account? Create One Below!</h2>
 
 <body>
+    <!--the following code is for the button for registration-->
     <div> 
         <input type="button" class="button" value="Create Account Here" id="regbutton" name="register_here" 
-        onclick = "location.href=`./registration.html${document.location.search}`";
+        onclick = "location.href=`./registration.html${document.location.search}`"; 
         >
+        <!--the above onclick directs the user to where it wants to go upon clicking the button-->
     </div>
     
     </body>

@@ -1,18 +1,20 @@
+<!--the following code is for the invoice table sourced from the Invoice WODs-->
+
 <script src="./product_data.js" type="text/javascript"></script>
 <script>
   let params = (new URL(document.location)).searchParams; 
   if (params.has('username')) {
-  username = params.get("username");
+  username = params.get("username"); // if it has a username get the username and display it
   } else {
     window.location.href="./login.html" + window.location.search;
-  }
+  } // the above code allows us to personalize the username to the invoice page 
   var quantities = [];
   if (params.has('purchase_submit')) { 
     for (i = 0; i < products.length; i++) {
       if (params.has(`quantity${i}`)) {
         a_qty = params.get(`quantity${i}`);
         quantities[i] = a_qty;
-      }
+      } // the above code allows us to find the quantities in the form that was submitted and grab it and display it
     }
   } else {
     window.location.href="./products_page.html" + window.location.search;

@@ -9,7 +9,7 @@
     <script>
       let params = (new URL(document.location)).searchParams; 
       if (params.has('error')) {
-      alert(params.get("error"));
+      alert(params.get("error")); //alerts the user of what type of error they are making with the registration 
   }
     </script>
 </head>
@@ -21,7 +21,7 @@
     function validatePassword(){
       if(password.value != repeat_password.value) { //if password is not the same repeat password, say passwords don't match
         alert("Please make sure passwords match.");
-    response.redirect('public/registration.html') 
+    response.redirect('public/registration.html') //redirects the user to registration page again to fill out a new form if the one they did didn't match 
       } 
     else{
         response.redirect('Login_Successful') 
@@ -38,9 +38,9 @@
         <li><a href="./products_page.html">Records</a></li>
         <li><a href="./login.html">Log In</a></li>
     </ul>
-
+    <!--the following code is for the registration form and onclick button-->
     <div style="margin-left:25%;padding:1px 16px;height:1000px;">
-        <div>
+        <div> 
                 <form method="POST" action="/register_user" onsubmit=validatePassword() name="registrationform">
                   <input type="text" name="fullname" size="40" pattern="[a-zA-Z]+[ ]+[a-zA-Z]+" maxlength="30" placeholder="Enter First & Last Name"><br />
                   <input type="text" name="username" size="40" pattern=".[a-z0-9]{3,10}" required title="Minimum 4 Characters, Maximum 10 Characters, Numbers/Letters Only" placeholder="Enter Username" ><br />
@@ -50,7 +50,7 @@
                
                   <input type="submit" value="Submit" id="submit">
               </form></div>
-
+<!--the following code allows the form to process where it is at and where it needs to go-->
               <script>
               registrationform.action += document.location.search;
               </script>
