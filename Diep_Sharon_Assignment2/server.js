@@ -100,7 +100,7 @@ app.post("/check_login", function (request, response) {
       //To check if the username exists in the json data
       if (users_reg_data[the_username].password == request.body.password) {
          //make the query string of prod quant needed for invoice
-         response.redirect('/invoice.html?' + theQuantQuerystring);
+         response.redirect('/invoice.html?' + theQuantQuerystring + `&username=${the_username}`);
          return;
       }
    }
@@ -132,26 +132,34 @@ app.post("/register_user", function (request, response) {
    the_username = request.body.username;
    console.log(the_username, "username is", typeof (users_reg_data[the_username]));
 
-   username = request.body.username;//saves new user to file name (users_reg_data)
+   username = request.body.username;//saves new username to file name (users_reg_data)
 
    errors = [];//checks to see if username already exists
 
+   theQuantQuerystring = qs.stringify(request.query);
    if (typeof users_reg_data[username] != 'undefined') {
       errors.push("Username is Already Taken. Please Enter a Different Username.");
+      console.log(errors, users_reg_data);
+   } else {
+      users_reg_data[username] = {};
    }
 
-   console.log(errors, users_reg_data);
+   if (request["body"]["password"] != request["body"]["password"]) {
+      errors.push("Password does not match! Please re-enter correct password.")
+   } else {
+      users_reg_data[username].password = request["body"]["password"];
+   }
+   
+   users_reg_data[username] = {};
+   users_reg_data[username].username = request.body.username;
+   users_reg_data[username].password = request.body.password;
+   users_reg_data[username].email = request.body.email;
 
-   if (errors.length == 0) {
-      users_reg_data[username] = {};
-      users_reg_data[username].username = request.body.username
-      users_reg_data[username].password = request.body.password;
-      users_reg_data[username].email = request.body.email;
-
-      theQuantQuerystring = qs.stringify(recordquantity);
+   if (errors.length == 0); {
       fs.writeFileSync(filename, JSON.stringify(users_reg_data));
-      response.redirect('/invoice.html?' + theQuantQuerystring);
-
+      response.redirect('/invoice.html?' + theQuantQuerystring + `&username=${the_username}`);
+   } else {
+      response.end(JSON.stringify(errors));
    }
 });
 
