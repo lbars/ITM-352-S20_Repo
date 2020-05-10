@@ -137,13 +137,14 @@ app.post("/register_user", function (request, response) {
    errors = [];//checks to see if username already exists
 
    theQuantQuerystring = qs.stringify(request.query);
+   //Check if username is valid
    if (typeof users_reg_data[username] != 'undefined') {
       errors.push("Username is Already Taken. Please Enter a Different Username.");
       console.log(errors, users_reg_data);
    } else {
-      users_reg_data[username] = {};
+      users_reg_data[username] = {}; 
    }
-
+   //check if password matches
    if (request["body"]["password"] != request["body"]["password"]) {
       errors.push("Password does not match! Please re-enter correct password.")
    } else {
@@ -158,8 +159,10 @@ app.post("/register_user", function (request, response) {
    if (errors.length == 0); {
       fs.writeFileSync(filename, JSON.stringify(users_reg_data));
       response.redirect('/invoice.html?' + theQuantQuerystring + `&username=${the_username}`);
-   } else {
-      response.end(JSON.stringify(errors));
+   } 
+   if (errors.length > 0); {
+      console.log(errors);
+      response.redirect(`/registration.html?` + theQuantQuerystring);
    }
 });
 

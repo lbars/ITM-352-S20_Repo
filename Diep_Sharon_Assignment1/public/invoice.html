@@ -10,7 +10,7 @@
       }
     }
   } else {
-    document.write('no form submitted');
+    document.write('No form submitted. Please return to "Shop For Records" to submit a form!');
   }
   console.log(quantities);
 </script>
@@ -19,18 +19,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Jk's Flower Shop Invoice</title>
-  <link href="product-style.css" rel="stylesheet">
+  <title>Jk's Vinyl Record Shop Invoice</title>
+  <link href="product_style.css" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Tomorrow' rel='stylesheet'>
 </head>
 
 <body>
   <header>
-    <h1>JK's Flower Shop</h1>
+    <h1>JK's Vinyl Record Shop</h1>
   </header>
   <ul>
     <li><a class="active" href="./index.html">Home</a></li>
-    <li><a href="./products_page.html">Shop</a></li>
+    <li><a href="./products_page.html">Shop For Records</a></li>
   </ul>
   <table border="2">
     <tbody>
@@ -67,16 +67,16 @@
           var shipping = 0.05 * subtotal
         }
         else if (subtotal >= 50) {
-          var shipping = 5
+          var shipping = 8
         }
         else if (subtotal < 50) {
-          var shipping = 2
+          var shipping = 4
         }
 
         // Compute grand total 
         var grandtotal = subtotal + tax + shipping;
 
-      // Sources: Invoice WOD, Assignment 1 example
+      // Sources pulled from: Invoice WOD, Assignment 1 example
 
       </script>
       <tr>
@@ -109,8 +109,8 @@
       <tr>
         <td style="text-align: left;" colspan="5" width="121%"><strong>
             OUR SHIPPING POLICY IS: <br>
-            Subtotals of $0 - $49.99 will be charged $5 shipping. <br>
-            Subtotals of $50 - $99.99 will be charged $10 shipping. <br>
+            Subtotals of $0 - $49.99 will be charged $4 shipping. <br>
+            Subtotals of $50 - $99.99 will be charged $8 shipping. <br>
             Subtotals over $100 will be charged 5% of the subtotal amount. <br>
           </strong></td>
 
@@ -119,7 +119,9 @@
   </table>
   <footer>
     <h1>
-      Thank You For Choosing JK's Flower Shop, <br> We Hope To See You Again!
+      Thank You For Shopping At JK's Vinyl Record Shop, 
+      <br> 
+      We Hope To See You Again Soon!
     </h1>
   </footer>
 </body>
