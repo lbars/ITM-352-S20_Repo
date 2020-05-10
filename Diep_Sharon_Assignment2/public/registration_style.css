@@ -8,6 +8,10 @@ body {
   font-family: "Roboto";
 }
 
+h1 {
+  text-align: center;
+}
+
 .back {
   background-image: url(image/background2);
   position: absolute;
@@ -107,7 +111,7 @@ header {
   form input {
     background: (rgb(0, 0, 0));
     color: rgb(0, 0, 0);
-    width: 80%;
+    width: 60%;
     border: 0;
     padding: 20px 40px;
     margin: 0;
@@ -124,7 +128,7 @@ header {
 
 .animated-button {
   width: 20%;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(252, 252, 252);
 }
 
   span {
@@ -168,7 +172,7 @@ header {
   z-index: 2;
   box-shadow: 0px 0px 100px rgba(0,0,0,0.2);
   transition: all 0.2s ease-in;
-  background: rgb(142, 187, 142);
+  background: rgb(117, 201, 124);
   margin-top: input-height;
 } 
   p {

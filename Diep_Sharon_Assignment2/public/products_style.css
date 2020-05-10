@@ -141,4 +141,8 @@ img {vertical-align: middle;}
     border: 3px solid black;
 }
 
+button {
+  align-self: center;
+}
+
 /* Resources Used: SmartPhoneProducts, w3schools */
