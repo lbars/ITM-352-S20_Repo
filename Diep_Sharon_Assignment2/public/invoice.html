@@ -1,8 +1,13 @@
 <script src="./product_data.js" type="text/javascript"></script>
 <script>
-  let params = (new URL(document.location)).searchParams;
+  let params = (new URL(document.location)).searchParams; 
+  if (params.has('username')) {
+  username = params.get("username");
+  } else {
+    window.location.href="./login.html" + window.location.search;
+  }
   var quantities = [];
-  if (params.has('purchase_submit')) {
+  if (params.has('purchase_submit')) { 
     for (i = 0; i < products.length; i++) {
       if (params.has(`quantity${i}`)) {
         a_qty = params.get(`quantity${i}`);
@@ -10,7 +15,7 @@
       }
     }
   } else {
-    document.write('No form submitted. Please return to "Shop For Records" to submit a form!');
+    window.location.href="./products_page.html" + window.location.search;
   }
   console.log(quantities);
 </script>
@@ -119,7 +124,7 @@
   </table>
   <footer>
     <h1>
-      Thank You For Shopping At JK's Vinyl Record Shop, 
+      <script>document.write(`Thank You ${username} For Shopping At JK's Vinyl Record Shop,`);</script>
       <br> 
       We Hope To See You Again Soon!
     </h1>

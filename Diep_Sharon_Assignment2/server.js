@@ -104,66 +104,50 @@ app.post("/check_login", function (request, response) {
          return;
       }
    }
+   response.send(`${username} registered!`);
    response.redirect('/login.html?' + theQuantQuerystring);
-});
-
-app.post("/registration.html", function (request, response) {
-   // Give a simple registration form
-   str = `
-           <div>
-                   <form method="POST" action="/register_user" onsubmit=validatePassword() >
-                     <input type="text" name="fullname" size="40" pattern="[a-zA-Z]+[ ]+[a-zA-Z]+" maxlength="30" placeholder="Enter First & Last Name"><br />
-                     <input type="text" name="username" size="40" pattern=".[a-z0-9]{3,10}" required title="Minimum 4 Characters, Maximum 10 Characters, Numbers/Letters Only" placeholder="Enter Username" ><br />
-                     <input type="email" name="email" size="40" placeholder="Enter Email" pattern="[a-z0-9._]+@[a-z0-9]+\.[a-z]{3,}$" required title="Please enter valid email."><br />
-                     <input type="password" id="password" name="password"  size="40" pattern=".{8,}" required title="8 Characters Minimum" placeholder="Enter Password"><br />
-                     <input type="password" id="repeat_password" name="repeat_password" size="40" pattern=".{8,}" required title="8 Characters Minimum" placeholder="Repeat Password"><br />
-                  
-                     <input type="submit" value="Submit" id="submit">
-                 </form></div>
-              
-   </body>
-   </html>`;
-   response.send(str + theQuantQuerystring);
 });
 
 app.post("/register_user", function (request, response) {
    // process a simple register form
    console.log(request.query, request.body);
-   the_username = request.body.username;
+   the_username = request.body.username.toLowerCase();
    console.log(the_username, "username is", typeof (users_reg_data[the_username]));
 
    username = request.body.username;//saves new username to file name (users_reg_data)
 
    errors = [];//checks to see if username already exists
 
-   theQuantQuerystring = qs.stringify(request.query);
    //Check if username is valid
    if (typeof users_reg_data[username] != 'undefined') {
       errors.push("Username is Already Taken. Please Enter a Different Username.");
       console.log(errors, users_reg_data);
    } else {
       users_reg_data[username] = {}; 
-   }
+   } 
    //check if password matches
    if (request["body"]["password"] != request["body"]["password"]) {
       errors.push("Password does not match! Please re-enter correct password.")
    } else {
       users_reg_data[username].password = request["body"]["password"];
    }
+   request.query.error = errors;
+   theQuantQuerystring = qs.stringify(request.query);
+   console.log(theQuantQuerystring);
+   if (errors.length == 0) {
+      users_reg_data[username] = {};
+      users_reg_data[username].name = request.body.name;
+      users_reg_data[username].password = request.body.password;
+      users_reg_data[username].email = request.body.email;
    
-   users_reg_data[username] = {};
-   users_reg_data[username].username = request.body.username;
-   users_reg_data[username].password = request.body.password;
-   users_reg_data[username].email = request.body.email;
-
-   if (errors.length == 0); {
       fs.writeFileSync(filename, JSON.stringify(users_reg_data));
+      console.log(theQuantQuerystring, "going to invoice");
       response.redirect('/invoice.html?' + theQuantQuerystring + `&username=${the_username}`);
-   } 
-   if (errors.length > 0); {
+      return;
+   } else {
       console.log(errors);
       response.redirect(`/registration.html?` + theQuantQuerystring);
-   }
+   } 
 });
 
 app.all('*', function (request, response, next) {

@@ -30,16 +30,15 @@
 <h2>Don't Have An Account? Create One Below!</h2>
 
 <body>
-    <div>
-        <form action="./registration.html">
-        <input type="submit" class="button" value="Create Account Here" id="regpage" name="register_here">
-        </form>
+    <div> 
+        <input type="button" class="button" value="Create Account Here" id="regbutton" name="register_here" 
+        onclick = "location.href=`./registration.html${document.location.search}`";
+        >
     </div>
     
     </body>
     
     <script>
-    regpage.href = "./registration.html" + document.location.search;
-    loginform.action = "./check_login" + document.location.search;
+    loginform.action += document.location.search;
     </script>
     </html>

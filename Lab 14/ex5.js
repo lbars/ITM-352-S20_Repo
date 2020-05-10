@@ -20,14 +20,25 @@ app.post("/register", function (request, response) {
    // validate registration data
  
    //all good, save new user
-   username = request.body.username;
+   
+// Check if username is valid
+if (typeof users_reg_data[username] != 'undefined') {
+   errors.push("Username is Already Taken. Please Enter a Different Username.");
+   console.log(errors, users_reg_data);
+} else {
+   users_reg_data[username] = {}; 
+}
+
+if (errors.length == 0); {
    users_reg_data[username] = {};
+   users_reg_data[username].username = request.body.username;
    users_reg_data[username].password = request.body.password;
    users_reg_data[username].email = request.body.email;
- 
+
    fs.writeFileSync(filename, JSON.stringify(users_reg_data));
- 
    response.send(`${username} registered!`);
+} 
+    
 });
  
 app.listen(8085, () => console.log(`listening on port 8085`));
