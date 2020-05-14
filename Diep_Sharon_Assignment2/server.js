@@ -1,5 +1,6 @@
-// Author: Sharon Diep
-
+//Author: Sharon Diep
+//The following code is my server page where it tells the computer what to do and where to go. The following should enable the user to go from he home page to products page to login or registration then to the invoice page.--> 
+//Referenced from server side processing labs with app.get and app.post examples. 
 
 //isNonNegInt function was drawn from Lab 13
 function isNonNegInt(q, returnErrors = false) {
