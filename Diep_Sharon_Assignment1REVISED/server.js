@@ -22,9 +22,9 @@ function isNonNegInt(q, returnErrors = false) {
     next();
  });
  
- app.use(myParser.urlencoded({ extended: true }));
- 
- app.post("/process_page", function (request, response) {
+app.use(myParser.urlencoded({ extended: true }));
+
+app.post("/process_page", function (request, response) {
     //check for valid quantities
     //look up request.query
     console.log(request.body); 
@@ -42,28 +42,17 @@ function isNonNegInt(q, returnErrors = false) {
              }
           }
        }
-       qstr = querystring.stringify(request.query);
+       qstr = querystring.stringify(request.body);
        // redirect to invoice if quantity data is valid or respond to invalid data
        if (has_errors || total_qty == 0) {
           //redirect to products page if quantity data is invalid
-          qstr = querystring.stringify(request.query);
           response.redirect("products_page.html?" + qstr);
        } else { //the quantity data is okay for the invoice
-         qstr = querystring.stringify(request.query);
           response.redirect("invoice.html?" + qstr);
+          return;
        }
     }
  });
- //if quantity data valid, send them to the login page
- //isNonNegInt function was drawn from Lab 13
- function isNonNegInt(q, returnErrors = false) {
-    errors = []; // assume that quantity data is valid 
-    if (q == "") { q = 0; } //this means that the blank values will be handle as if they were 0
-    if (Number(q) != q) errors.push('This is Not a Number!'); //check if value is a number
-    if (q < 0) errors.push('This is a Negative Value!'); //check if value is a positive number
-    if (parseInt(q) != q) errors.push('This is Not an Integer!'); //check if value is a whole number
-    return returnErrors ? errors : (errors.length == 0);
- }
  
  app.all('*', function (request, response, next) {
     console.log(request.method + ' to ' + request.path);
