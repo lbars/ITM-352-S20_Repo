@@ -40,7 +40,10 @@
                 alert("Please enter only valid quantities.");
             } else if (total_qty == 0) { //alert for no quantities chosen
                 alert("Please select quantities for the items you would like to purchase.");
-            } 
+            } else {
+                window.location =`./invoice.html${document.location.search}`;
+                window.stop;
+            }
         }
     }
 // Resources Used: SmartPhoneProducts, Lab13, Assignment 1 example
@@ -64,7 +67,6 @@
         <ul>
             <li><a href="./index.html">Home</a></li>
             <li><a class="active" href="./products_page.html">Shop For Records</a></li>
-            <li><a href="./login.html">Log In</a></li>
         </ul>
         <div class="productsbox"> 
             <main>

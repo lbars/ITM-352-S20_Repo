@@ -14,6 +14,7 @@ table{
     height: 200px; 
     background-color: rgb(255, 111, 159);
     border: 3px solid black;
+    align-items: center;
 }
 
 /* Typography */
@@ -87,7 +88,7 @@ table {
 }
 
 th, td {
-  text-align: left;
+  text-align: center;
   padding: 8px;
 }
 

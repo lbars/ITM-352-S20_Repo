@@ -1,8 +1,12 @@
+/* Author: Sharon Diep */
+
 /* General */
 body {
-    width: 200px;
+    width: 340px;
     margin: 0 auto;
+    background-image: url(./images/galaxy.png);
 }
+
 h1 {
   font-size: 50px;
   color: #556b2f;
@@ -17,8 +21,12 @@ h3 {
   font-size: 25px;
 }
 
+h4 {
+  font-size: 25px;
+}
+
 table{
-    background-image: url(images/Background4.png)
+    background-image: url()
  }
 
 /* Styling the products display*/
@@ -30,7 +38,7 @@ table{
 }
 
 /* Typography */
-h1, h2, p, label, td, th, li, .text {
+h1, h2, h3, h4, p, label, th, li, .text {
     color: white;
     text-shadow: 
         -1px -1px 0 #000,
@@ -39,7 +47,6 @@ h1, h2, p, label, td, th, li, .text {
         1px 1px 0 #000;
     text-align: center;
     font-family: 'Tomorrow';
-    
 }
 
 /*  Form styling */
@@ -47,7 +54,7 @@ main {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
-    background: url(); 
+    background-color: white; 
     background-repeat: repeat; 
     background-position: right;
 }
@@ -59,14 +66,21 @@ main {
 
 
 header,footer {
-    background-color:  #556b2f;
+    background-color:  hsl(82, 39%, 30%);
     border: 3px solid black;
 }
 
 input[type=submit] {
   width: 10em;  height: 4em;
   font-size: 20px;
-  margin-left: 50%
+  margin-left: 50%;
+  margin-right: 50%;
+}
+
+button {
+  margin: 0 auto;
+  padding: 10px;
+
 }
 
 /*Navigation Bar on Home Page*/
@@ -98,6 +112,7 @@ ul {
 table {
   border-collapse: collapse;
   width: 100%;
+  background-color: white;
 }
 
 th, td {
@@ -105,13 +120,16 @@ th, td {
   padding: 10px;
 }
 
-tr:nth-child(even){background-color: rgb(238, 232, 170)}
+tr:nth-child(even){background-color: hsl(82, 39%, 30%)}
 
 th {
-  background-color: rgb(238, 232, 170);
-  color: rgb(0, 0, 0);
+  background-color:  hsl(82, 39%, 30%);
+  color: rgb(255, 255, 255);
 }  
 
+td {
+  color: #000;
+}
 /*All the following css below is for the SLIDESHOW on home page, Referred to w3schools*/
 * {box-sizing: border-box;}
 .mySlides {display: none;}
@@ -139,10 +157,7 @@ img {vertical-align: middle;}
 .mySlides {
     background-image: url();
     border: 3px solid black;
-}
-
-button {
-  align-self: center;
+    background-color: white;
 }
 
 /* Resources Used: SmartPhoneProducts, w3schools */

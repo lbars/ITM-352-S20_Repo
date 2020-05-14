@@ -1,3 +1,6 @@
+// Author: Sharon Diep
+
+
 //isNonNegInt function was drawn from Lab 13
 function isNonNegInt(q, returnErrors = false) {
    errors = []; // assume that quantity data is valid 
@@ -89,6 +92,16 @@ if (fs.existsSync(filename)) {
    users_reg_data = JSON.parse(data);
 }
 
+
+    function isNonNegInt(q, return_errors = false) {
+        errors = [];
+        if (q == '') q = 0;
+        if (Number(q) != q) errors.push('<font color="red">Please put a number.</font>'); //check if value is a number
+        else if (q < 0) errors.push('<font color="red">Please put a positive value.</font>'); //check if value is a positive number
+        else if (parseInt(q) != q) errors.push('<font color="red">Please put a whole number.</font>'); //check if value is a whole number
+        return return_errors ? errors : (errors.length == 0);
+    }
+
 app.post("/check_login", function (request, response) {
    // Process login form POST and redirect to logged in page if ok, back to login page if not
    console.log(request.query, request.body);
@@ -102,10 +115,12 @@ app.post("/check_login", function (request, response) {
          //make the query string of prod quant needed for invoice
          response.redirect('/invoice.html?' + theQuantQuerystring + `&username=${the_username}`);
          return;
+      } else { 
+         response.redirect('/login.html?' + theQuantQuerystring); // redirects to the login page when login was invalid
       }
    }
    response.send(`${username} registered!`); 
-   response.redirect('/login.html?' + theQuantQuerystring); // redirects to the login page when login was invalid
+   response.redirect('/invoice.html?' + theQuantQuerystring + `&username=${the_username}`); // redirects to the login page when login was invalid
 });
 
 app.post("/register_user", function (request, response) {
