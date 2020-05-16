@@ -1,0 +1,76 @@
+<!--Author: Sharon Diep-->
+<!--The following code is used to create the registration table and some of the functions in order to validate the password.-->
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Customer Registration</title>
+    <link href = "products_style.css" rel="stylesheet">
+    <script>
+      let params = (new URL(document.location)).searchParams; 
+      if (params.has('error')) {
+      alert(params.get("error")); //alerts the user of what type of error they are making with the registration 
+  }
+    </script>
+</head>
+
+<script>
+    var password = document.getElementById("password") //turns password into an object
+    repeat_password = document.getElementById("repeat_password"); //turns repeat password into an object
+    
+    function validatePassword(){
+      if(password.value != repeat_password.value) { //if password is not the same repeat password, say passwords don't match
+        alert("Please make sure passwords match.");
+    response.redirect('public/registration.html') //redirects the user to registration page again to fill out a new form if the one they did didn't match 
+      } 
+    else{
+        response.redirect('Login_Successful') 
+    }
+  
+    }
+  </script>
+
+<body>
+    <!--the following code is for the navigation bar-->
+    <header>
+      <h1>JK's Vinyl Record Shop</h1>
+    </header>
+    <ul>
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./login.html">Log In</a></li>
+        <div class="dropdown">
+          <li class="dropbtn">Shop For Records</li>
+          <div class="dropdown-content" width="100%">
+            <a href="./best_sellers.html">Best Sellers</a>
+            <a href="./limited_deals.html">Limited Deals</a>
+            <a href="./new_arrivals.html">New Arrivals</a>
+            <a href="./the_classics.html">The Classics</a>
+          </div>
+        </div>
+        <li><a href="./shoppingcart.html">Shopping Cart</a></li>
+    </ul>
+    <h1>
+      Welcome! Please register an account here! 
+    </h1>
+    <!--the following code is for the registration form and onclick button-->
+    <div style="padding:1px 16px;height:1000px;">
+        <div> 
+                <form method="POST" action="/register_user" onsubmit=validatePassword() name="registrationform">
+                  <input type="text" name="fullname" size="40" pattern="[a-zA-Z]+[ ]+[a-zA-Z]+" maxlength="30" placeholder="Enter First & Last Name"><br />
+                  <input type="text" name="username" size="40" pattern=".[a-z0-9]{3,10}" required title="Minimum 4 Characters, Maximum 10 Characters, Numbers/Letters Only" placeholder="Enter Username" ><br />
+                  <input type="email" name="email" size="40" placeholder="Enter Email" pattern="[a-z0-9._]+@[a-z0-9]+\.[a-z]{3,}$" required title="Please enter valid email."><br />
+                  <input type="password" id="password" name="password"  size="40" pattern=".{8,}" required title="8 Characters Minimum" placeholder="Enter Password"><br />
+                  <input type="password" id="repeat_password" name="repeat_password" size="40" pattern=".{8,}" required title="8 Characters Minimum" placeholder="Repeat Password"><br />
+               
+                  <input type="submit" value="Submit" id="submit">
+              </form></div>
+<!--the following code allows the form to process where it is at and where it needs to go-->
+              <script>
+              registrationform.action += document.location.search;
+              </script>
+</body>
+</html>
+

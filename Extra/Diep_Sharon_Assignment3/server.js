@@ -155,13 +155,14 @@ app.get("/shoppingcart.html", function (request, response) {
    response.send(cartfile);
 });
 
-app.post("/checkout_cart"), function (request, response) {
+app.post("/shoppingcart.html"), function (request, response) {
 
 }
 app.post("/check_login", function (request, response) {
    // Process login form POST and redirect to logged in page if ok, back to login page if not
    console.log(request.query, request.body);
    the_username = request.body.username;
+   user_email = request.body.email;
    console.log(the_username, "username is", typeof (users_reg_data[the_username]));
    //validate login data
    theQuantQuerystring = qs.stringify(request.query);
@@ -171,15 +172,16 @@ app.post("/check_login", function (request, response) {
          //make the query string of prod quant needed for invoice
          session.username = the_username;
          var theDate = new Date;
+         session.email = user_email;
          session.last_login_time = theDate;
-         response.cookie('username', the_username, { maxAge: 5 * 100 });
-         response.send(`${the_username} logged in on ${theDate}`);
-         return;
+         response.cookie('username', the_username, { maxAge: 5 * 1000 });
+         response.cookie('email', user_email, { maxAge: 5 * 1000 });
+         response.cookie('last_login_time', theDate, { maxAge: 5 * 1000 });
+         console.log(`${the_username} logged in on ${theDate}`);
+         response.redirect('/invoice.html?' + theQuantQuerystring + `&username=${the_username}`);
       } else {
          response.redirect('/login.html?' + theQuantQuerystring); // redirects to the login page when login was invalid
       }
-   response.send(`${username} registered!`);
-   response.redirect('/invoice.html?' + theQuantQuerystring + `&username=${the_username}`); // redirects to the login page when login was invalid
    }
 });
 
@@ -215,8 +217,8 @@ app.post("/register_user", function (request, response) {
       users_reg_data[username].password = request.body.password;
       users_reg_data[username].email = request.body.email;
       fs.writeFileSync(filename, JSON.stringify(users_reg_data));
-      response.cookie("username", users_reg_data[username]); //sets username = registered_username in cookie
-      response.cookie("name", registered_name); //remembers name in cookie
+      response.cookie("username", users_reg_data[username]); //sets username = username in cookie
+      response.cookie("name", request.body.name); //remembers name in cookie
       response.cookie("email", request.body.email); //remembers email in cookie
       response.json({}); //give response parsed as json object
    }
