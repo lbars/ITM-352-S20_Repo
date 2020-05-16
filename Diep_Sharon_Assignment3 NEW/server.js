@@ -72,8 +72,8 @@ app.post("/process_page", function (request, response) {
       }
     }
   }
-
 });
+
 //if quantity data valid, send them to the login page
 //isNonNegInt function was drawn from Lab 13
 function isNonNegInt(q, returnErrors = false) {
@@ -93,15 +93,6 @@ if (fs.existsSync(filename)) {
   data = fs.readFileSync(filename, 'UTF-8');
   console.log(typeof data);
   users_reg_data = JSON.parse(data);
-}
-
-function isNonNegInt(q, return_errors = false) {
-  errors = [];
-  if (q == '') q = 0;
-  if (Number(q) != q) errors.push('<font color="red">Please put a number.</font>'); //check if value is a number
-  else if (q < 0) errors.push('<font color="red">Please put a positive value.</font>'); //check if value is a positive number
-  else if (parseInt(q) != q) errors.push('<font color="red">Please put a whole number.</font>'); //check if value is a whole number
-  return return_errors ? errors : (errors.length == 0);
 }
 
 app.post("/check_login", function (request, response) {
