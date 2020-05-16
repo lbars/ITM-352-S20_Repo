@@ -37,7 +37,7 @@
         if (params.has('purchase_submit')) {
             has_errors = false; // assume quantities are valid
             total_qty = 0; // check if any quantity is selected, checking if total > 0
-            for (i = 0; i < products.length; i++) {
+            for (i = 0; i < allProducts.length; i++) {
                 if (params.has(`quantity${i}`)) {
                     a_qty = params.get(`quantity${i}`);
                     // make textboxes sticky in case of invalid data
@@ -54,7 +54,7 @@
                 alert("Please enter only valid quantities.");
             } else if (total_qty == 0) { //alert for no quantities chosen
                 alert("Please select quantities for the items you would like to purchase.");
-            } 
+            }
         }
     }
 // Resources Used: SmartPhoneProducts, Lab13, Assignment 1 example
@@ -80,32 +80,40 @@
             <div class="dropdown">
                 <li class="dropbtn">Shop For Records</li>
                 <div class="dropdown-content" width="100%">
-                  <a href="./best_sellers.html">Best Sellers</a>
-                  <a href="./limited_deals.html">Limited Deals</a>
-                  <a href="./new_arrivals.html">New Arrivals</a>
-                  <a href="./the_classics.html">The Classics</a>
+                <script>
+                for (ptype in allProducts) {
+                    if (ptype == products_type) {
+                        continue; 
+                    }
+                    document.write(`<a href="./${ptype}.html">${ptype.charAt(0).toUpperCase() + ptype.slice(1)}</a>`); 
+                }
+                </script>
                 </div>
-              </div>            
+            </div>
             <li><a href="./login.html">Log In</a></li>
             <li><a href="./shoppingcart.html">Shopping Cart</a></li>
         </ul>
-        <div class="productsbox"> 
+        <div class="productsbox">
             <main>
                 <script>
-                    for (i = 0; i < products[allProducts].length; i++) {
+                    document.write(`input type ="hidden" name="product_type" value="${product_type}">`);
+                    for (i = 0; i < allProducts[product_type].length; i++) {
                         document.write(`
                                     <section class="item">
-                                        <h2>${products[allProducts][i].model}</h2>
-                                        <p>$${products[allProducts][i].price}</p>
+                                        <h2>${allProducts[product_type][i].model}</h2>
+                                        <p>$${allProducts[product_type][i].price}</p>
                                         <label id="quantity${i}_label"}">Quantity:</label>
                                         <input type="text" placeholder="0" name="quantity${i}" 
                                         onkeyup="checkQuantityTextbox(this);">
                                         <br>
-                                        <img src="./images/${products[allProducts][i].image}">
+                                        <img src="./images/${products[product_type][i].image}">
                                         <hr style="border: 0px">
                                     </section>
                                 `);
-                    }    
+                                if (typeof cart[`quantity${i}`] != 'undefined') {
+                                    product_selection_form[`quantity${i}`].value = cart[`quantity${i}`]; 
+                                }
+                    }
                 </script>
             </main>
         </div>

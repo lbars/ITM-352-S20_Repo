@@ -1,6 +1,7 @@
 <!--Author: Sharon Diep-->
 <!--Sourced from SmartPhoneProducts WODs and Labs-->
 <!--The following shows code for a general home page for the e-commerce website. It incorporates code for a slideshow showing all the products-->
+<script src="product_data.js" type="text/javascript"></script>
 
 <html lang="en">
 
@@ -41,12 +42,14 @@
     <div class="dropdown">
       <li class="dropbtn">Shop For Records</li>
       <div class="dropdown-content" width="100%">
-        <a href="./best_sellers.html">Best Sellers</a>
-        <a href="./limited_deals.html">Limited Deals</a>
-        <a href="./new_arrivals.html">New Arrivals</a>
-        <a href="./the_classics.html">The Classics</a>
+        <script>
+          for (product_type in allProducts) {
+            document.write(`<a href="./display_products.html?product_type=${product_type}">${product_type}</a>`);
+          }
+        </script>
       </div>
     </div>
+
     <li><a href="./login.html">Log In</a></li>
     <li><a href="./shoppingcart.html">Shopping Cart</a></li>
   </ul>

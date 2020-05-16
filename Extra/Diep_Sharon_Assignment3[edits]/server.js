@@ -19,8 +19,8 @@ var express = require('express'); //code for server
 var session = require('express-session');
 var myParser = require("body-parser"); //code for server
 var cookieParser = require(`cookie-parser`);
-var productdata = require("./public/product_data.js").products; //accessing data from javascript file
-var products = productdata.products;
+var products = require("./public/product_data.js"); //accessing data from javascript file
+var allProducts = products.allProducts; 
 var filename = 'user_data.json' //defines the array as an object 
 var fs = require('fs'); //pulls data from product_data.js
 var app = express();
@@ -33,12 +33,9 @@ app.all('*', function (request, response, next) {
 app.use(cookieParser());
 
 if (fs.existsSync(filename)) {
-   stats = fs.statSync(filename) //this gets stats from the filename 
    data = fs.readFileSync(filename, 'UTF-8');
    console.log(typeof data);
    users_reg_data = JSON.parse(data);
-
-   console.log(`${filename} has ${stats.size} characters`);
 } else {
    console.log("Hey!" + filename + "doesn't exist!")
 }
@@ -51,6 +48,7 @@ function setCookie(cname, cvalue, exdays) {
    var expires = "expires=" + visit.toPSTString();
    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=./";
 }
+//Referenced from w3schools "Javascript Cookies"
 function getCookie(cname) {
    var name = cname + "=";
    var decodedCookie = decodedURIComponent(document.cookie);
@@ -66,6 +64,7 @@ function getCookie(cname) {
    }
    return "";
 }
+//Referenced from w3schools "Javascript Cookies"
 function checkCookie() {
    var username = getCookie("username");
    if (username != "") {
@@ -88,27 +87,58 @@ app.use(session({
    ephemeral: true // deletes cookie when browser is closed
 }));
 
-function saveRecord(theTextbox) {
-   if (isNonNegInt(theTextbox.value) == false) {
-      product_selection_form[`quantity${i}`].value = recordQuantity;
-      session.user.recordQuantity = recordQuantity;
-      document.getElementById(`shoppingcart${i}`).innerHTML = 'Added to Cart!';
-   } else {
-      document.getElementById(`shoppingcart${i}`).innerHTML = 'Cannot Add Item to Cart. Please Enter Valid Quantity.';
-   };
-};
-
 app.use(myParser.urlencoded({ extended: true }));
 
+/*
+app.get("*//*:ptype[.]html", function (request, response, next) {
+   if (typeof allProducts[request.params.ptype] == 'undefined')
+   {
+      next(); 
+      return;
+   }
+   str = '{}'; 
+   if (typeof request.session[request.params.ptype] != 'undefined') {
+      str = JSON.stringify(request.session[request.params.ptype]);
+   }
+   var pagestring = fs.readFileSync('./displayproducts.tl', 'utf-8');
+   pagestring = `<script> var cart = ${str} </script>` + pagestring; 
+   pagestring = `<script> var product_type = '${request.params.ptype}'; </script>` + pagestring; 
+   response.send(pagestring); 
+});
+*/
+
 app.post("/process_page", function (request, response) {
-   let POST = request.body;
-   if (typeof POST['addQuantitytoCart${i}'] != 'undefined') {
-      var validQuantity = true;
-      var quantity = false;
+   //check for valid quantities
+   //look up request.query
+   console.log(request.body); 
+   var params = request.body;
+   if (typeof params['submitcart'] != 'undefined') {
+      has_errors = false; // assume that quantity values are valid
+      for (i = 0; i < allProducts[params.product_type].length; i++) {
+         console.log(i, params[`quantity${i}`]);
+         if (typeof params[`quantity${i}`] != 'undefined') {
+            a_qty = params[`quantity${i}`];
+            if (!isNonNegInt(a_qty)) {
+               has_errors = true; // see if there is invalid data
+            }
+         }
+      }
+      qstr = querystring.stringify(request.body);
+      // redirect to invoice if quantity data is valid or respond to invalid data
+      if (has_errors) {
+         //redirect to products page if quantity data is invalid
+         console.log("going to products page", has_errors);
+         response.redirect(request.headers["referer"] + "?" + qstr);
+      } else { //the quantity data is okay for the invoice
+         console.log("going to login page");
+         request.session[params.product_type] = params; 
+         console.log(request.session);
+         response.redirect("/shoppingcart.html?" + qstr);
+      }
    }
 });
 
-function product_selection_form(POST, response) {
+/*function product_selection_form(POST, response) {
    if (typeof POST['purchase_submit'] != 'undefined'); {
       var qstring = qs.stringify(POST);
       for (i in products) {
@@ -126,6 +156,7 @@ function product_selection_form(POST, response) {
       }
    }
 };
+*/
 
 //if quantity data valid, send them to the login page
 //isNonNegInt function was drawn from Lab 13
@@ -138,24 +169,11 @@ function isNonNegInt(q, returnErrors = false) {
    return returnErrors ? errors : (errors.length == 0);
 }
 
-fs = require('fs'); // uses file system moduel
-
-//open file if it exists, if it doesn't don't open it
-if (fs.existsSync(filename)) {
-   stats = fs.statSync(filename) //this gets stats from the filename 
-   data = fs.readFileSync(filename, 'UTF-8');
-   console.log(typeof data);
-   users_reg_data = JSON.parse(data);
-}
-
-function isNonNegInt(q, return_errors = false) {
-   errors = [];
-   if (q == '') q = 0;
-   if (Number(q) != q) errors.push('<font color="red">Please put a number.</font>'); //check if value is a number
-   else if (q < 0) errors.push('<font color="red">Please put a positive value.</font>'); //check if value is a positive number
-   else if (parseInt(q) != q) errors.push('<font color="red">Please put a whole number.</font>'); //check if value is a whole number
-   return return_errors ? errors : (errors.length == 0);
-}
+app.get("/shoppingcart.html", function (request, response) {
+   cartfile = `<script> var cart = ${JSON.stringify(request.session)}</script>`;
+   cartfile += fs.readFileSync('./shoppingcart.html', 'UTF-8');
+   response.send(cartfile);
+});
 
 app.post("/check_login", function (request, response) {
    // Process login form POST and redirect to logged in page if ok, back to login page if not
@@ -168,11 +186,11 @@ app.post("/check_login", function (request, response) {
       //To check if the username exists in the json data
       if (users_reg_data[the_username].password == request.body.password) {
          //make the query string of prod quant needed for invoice
-         session.username = login_usernme;
+         session.username = the_username;
          var theDate = Date().now();
          session.last_login_time = theDate;
-         response.cookie('username', login_username, { maxAge: 5 * 1000 });
-         response.end(`${login_username} is logged in with data ${JSON.stringify(quantity_str)} on ${theDate}`);
+         response.cookie('username', the_username, { maxAge: 5 * 1000 });
+         response.end(`${username} is logged in with data ${JSON.stringify(quantity_str)} on ${theDate}`);
          return;
       } else {
          response.redirect('/login.html?' + theQuantQuerystring); // redirects to the login page when login was invalid
@@ -223,13 +241,21 @@ app.post("/register_user", function (request, response) {
 
 app.post('/logout', function(request, response){
    request.session.reset(); 
-   response.redirect('./index.jtml');
+   response.redirect('./index.html');
 })
 
-app.all('*', function (request, response, next) {
-   console.log(request.method + ' to ' + request.path);
-   next();
-});
+/*var message = {
+   from: 'Nodemailer <sdiep7@hawaii.edu>',
+   to: 'Nodemailer <${username.email}>',
+   subject: 'Succulent Receipt',
+   text: "Thank you for shopping with us! <br> - JK's Vinyl Record Shop ",
+   html: '<p>For clients that do not support AMP4EMAIL or amp'
+   , headers: {
+     'My-Custom-Header': 'header value'
+   },
+   date: new Date('2000-01-01 00:00:00')
+ };
+ */
 
 app.use(express.static('./public'));
 app.listen(8080, () => console.log(`listening on port 8080`));

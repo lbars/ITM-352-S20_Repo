@@ -2,7 +2,6 @@
 //Author - Sharon Diep 
 //Referenced from Smartphoneproducts labs and WODs
 //This page will be referenced in the products_page.html in order to be able to display the products. This page defines the products variable at the end. {
-
 var best_sellers = [
     {
         "model": "'Please Please Me' - The Beatles",
@@ -89,7 +88,7 @@ var the_classics = [
     }
 ];
 
-var products = {
+var allProducts = {
     "Best Sellers": best_sellers,
     "Limited Deals": limited_deals,
     "New Arrivals": new_arrivals,
@@ -97,5 +96,5 @@ var products = {
 }
 
 if (typeof module != 'undefined') {
-    module.exports.products = products;
+    module.exports.allProducts = allProducts;
 }
