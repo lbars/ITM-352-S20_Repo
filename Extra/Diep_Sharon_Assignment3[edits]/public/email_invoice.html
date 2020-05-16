@@ -1,0 +1,23 @@
+<script>
+
+    // Took code from https://nodemailer.com/smtp/
+    let transporter = nodemailer.createTransport(options[defaults])
+    let poolConfig = "smtps://username:password@smtp.example.com/?pool=true";
+    nodemailer.createTransport({
+        host: "mail.hawaii.com",
+        port: 8080,
+        secure: false, // upgrade later with STARTTLS
+        auth: {
+          user: "username",
+          pass: "password"
+        }
+      });
+      // verify connection configuration
+    transporter.verify(function(error, success) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Server is ready to take our messages");
+        }
+      });
+    </script>

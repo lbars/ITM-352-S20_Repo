@@ -1,0 +1,173 @@
+<!--Author: Sharon Diep-->
+<!--Sourced from SmartPhoneProducts WODs and Labs-->
+<!--The following shows code for a general home page for the e-commerce website. It incorporates code for a slideshow showing all the products-->
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JK's Vinyl Record Shop Home</title>
+  <style>
+    /* Resource Used: SmartPhoneProducts WOD*/
+    img {
+      border: 1px solid #ddd;
+      /* Gray border */
+      border-radius: 4px;
+      /* Rounded border */
+      padding: 5px;
+      /* Some padding */
+      width: 5px;
+      /* Set a small width */
+    }
+
+    /* Add a hover effect (black shadow) */
+    img:hover {
+      box-shadow: 0 0 5px 5px black;
+    }
+  </style>
+  <link href="products_style.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Tomorrow' rel='stylesheet'>
+</head>
+
+<body>
+
+  <header>
+    <h1>JK's Vinyl Record Shop</h1>
+  </header>
+  <ul>
+    <li><a class="active" href="./index.html">Home</a></li>
+    <li><a href="./products_page.html">Shop For Records</a></li>
+    <li><a href="./login.html">Log In</a></li>
+  </ul>
+  <a href="./products_page.html">
+
+    <div class="slideshow-container">
+
+      <div class="mySlides">
+        <img src="./images/Legend.png" style="width:50%">
+        <div class="text">'Legend' - Bob Marley and the Wailers</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/PleasePleaseMe.png" style="width:50%">
+        <div class="text">'Please Please Me' - The Beatles</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/HotelCalifornia.png" style="width:50%">
+        <div class="text">'Hotel California' - The Eagles</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/Ramones.png" style="width:50%">
+        <div class="text">'Ramones' - Ramones</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/LetItBleed.png" style="width:50%">
+        <div class="text">'Let It Bleed' - The Rolling Stones</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/Innervisions.png" style="width:50%">
+        <div class="text">'Innervisions' - Stevie Wonders</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/PetSounds.png" style="width:50%">
+        <div class="text">'Pet Sounds' - The Beach Boys</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/Revolver.png" style="width:50%">
+        <div class="text">'Revolver' - The Beatles</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/Highway61Revisited.png" style="width:50%">
+        <div class="text">'Highway 61 Revisited' - Bob Dylan</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/ZiggyStardust.png" style="width:50%">
+        <div class="text">'Ziggy Stardust' - David Bowie</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/TheSunSessions.png" style="width:50%">
+        <div class="text">'The Sun Sessions' - Elvis Presley</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/Thriller.png" style="width:50%">
+        <div class="text">'Thriller' - Michael Jackson</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/Graceland.jpg" style="width:50%">
+        <div class="text">'Graceland' - Paul Simon</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/DarkSideOfTheMoon.jpg" style="width:50%">
+        <div class="text">'Dark Side of the Moon' - Pink Floyd</div>
+      </div>
+
+      <div class="mySlides">
+        <img src="./images/MyTime.png" style="width:50%">
+        <div class="text">'My Time' - JK</div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+    <script>
+      var slideIndex = 0;
+      showSlides();
+
+      function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1 }
+        for (i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+        setTimeout(showSlides, 3000); // Change image every 3 seconds
+      }
+    </script>
+    <footer>
+      <h2>
+        Love Vinyl Records? 
+        <br>
+        Browse Through New and Vintage Vinyl Records HERE!
+      </h2>
+    </footer>
+</body>
+
+</html>
