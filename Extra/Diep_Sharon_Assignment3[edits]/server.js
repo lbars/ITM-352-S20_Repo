@@ -138,26 +138,6 @@ app.post("/process_page", function (request, response) {
    }
 });
 
-/*function product_selection_form(POST, response) {
-   if (typeof POST['purchase_submit'] != 'undefined'); {
-      var qstring = qs.stringify(POST);
-      for (i in products) {
-         let q = POST[`quantity${i}`];
-         if (isNonNegInt(q) == true) {
-            response.redirect('shoppingcart.html?' + qstring);
-         } else {
-            response.redirect('products_page.html?' + qstring);
-         }
-         var filename = 'userdata.json';
-         if (fs.existsSync(filename)) {
-            var data = fs.readFileSync(filename, 'UTF-8');
-            var users_reg_data = JSON.parse
-         }
-      }
-   }
-};
-*/
-
 //if quantity data valid, send them to the login page
 //isNonNegInt function was drawn from Lab 13
 function isNonNegInt(q, returnErrors = false) {
@@ -175,6 +155,9 @@ app.get("/shoppingcart.html", function (request, response) {
    response.send(cartfile);
 });
 
+app.post("/checkout_cart"), function (request, response) {
+
+}
 app.post("/check_login", function (request, response) {
    // Process login form POST and redirect to logged in page if ok, back to login page if not
    console.log(request.query, request.body);
@@ -187,17 +170,17 @@ app.post("/check_login", function (request, response) {
       if (users_reg_data[the_username].password == request.body.password) {
          //make the query string of prod quant needed for invoice
          session.username = the_username;
-         var theDate = Date().now();
+         var theDate = new Date;
          session.last_login_time = theDate;
-         response.cookie('username', the_username, { maxAge: 5 * 1000 });
-         response.end(`${username} is logged in with data ${JSON.stringify(quantity_str)} on ${theDate}`);
+         response.cookie('username', the_username, { maxAge: 5 * 100 });
+         response.send(`${the_username} logged in on ${theDate}`);
          return;
       } else {
          response.redirect('/login.html?' + theQuantQuerystring); // redirects to the login page when login was invalid
       }
-   }
    response.send(`${username} registered!`);
-   response.redirect('/shoppingcart.html?' + theQuantQuerystring + `&username=${the_username}`); // redirects to the login page when login was invalid
+   response.redirect('/invoice.html?' + theQuantQuerystring + `&username=${the_username}`); // redirects to the login page when login was invalid
+   }
 });
 
 app.post("/register_user", function (request, response) {
@@ -232,7 +215,7 @@ app.post("/register_user", function (request, response) {
       users_reg_data[username].password = request.body.password;
       users_reg_data[username].email = request.body.email;
       fs.writeFileSync(filename, JSON.stringify(users_reg_data));
-      response.cookie("username", registered_username); //sets username = registered_username in cookie
+      response.cookie("username", users_reg_data[username]); //sets username = registered_username in cookie
       response.cookie("name", registered_name); //remembers name in cookie
       response.cookie("email", request.body.email); //remembers email in cookie
       response.json({}); //give response parsed as json object
