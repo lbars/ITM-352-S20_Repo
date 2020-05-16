@@ -21,7 +21,7 @@
     }
 
     //function to save record quantity to shopping cart 
-    function saveRecord(i) {
+    function addtocart(i) {
         var recordAmount = product_selection_form[`quantity${i}`].value;
         if (isNonNegInt(recordAmount) == true) {
             sessionStorage[`${allProducts}`] = recordAmount;
