@@ -21,7 +21,7 @@
         }
         return "";
     }
-    // got help from port 
+    // functions for modify and remove button in cart page 
     function addItem(theProduct, theIndex) { //function to increase that row's tour amount by 1
         var this_product_quantity = parseInt(request.session.setItem(`${theProduct}${theIndex}`)); //parse it
         this_product_quantity += 1; //add 1 to number
@@ -90,13 +90,14 @@
                 </tr>
                 <script>
                     subtotal = 0;
-                    for (product_type in allProducts) {
-                        if (typeof cart[product_type] == 'undefined') {
+                    //for loop that puts session data into the shopping cart template 
+                    for (product_type in allProducts) { //grabs product_type pages from all the products 
+                        if (typeof cart[product_type] == 'undefined') { //if there is nothing in the cart continue
                             continue;
                         }
-                        for (i = 0; i < allProducts[product_type].length; i++) {
-                            console.log(product_type, cart[product_type][`quantity${i}`]);
-                            if (cart[product_type][`quantity${i}`] > 0) {
+                        for (i = 0; i < allProducts[product_type].length; i++) { //if there is something in the cart, how much, what is it
+                            console.log(product_type, cart[product_type][`quantity${i}`]);//log the products type and amomunt
+                            if (cart[product_type][`quantity${i}`] > 0) { //if the quantity of the product is above 1 write into table
                                 // The following code computes the extended price.
                                 extended_price = cart[product_type][`quantity${i}`] * allProducts[product_type][i].price
                                 subtotal += extended_price;
@@ -107,16 +108,14 @@
                       <td align="center" width="15%">\$${allProducts[product_type][i].price}</td>
                       <td align="center" width="40%">\$${extended_price.toFixed(2)}</td>
                       <td align="center" width="43%"><input type="button" value="Modify Quantity" onclick="addItem()">
-                       <input type="button" value="Remove" onclick="removeItem()"></td>
+                       <input type="button" value="Remove" onclick="removeItem()"></td> 
                     </tr>
-                    `);
+                    `);//above added buttons for removing and modifying cart quantities 
                             }
                         }
                     }
 
-                    function ModifyItem(i) {
-
-                    }
+                    
 
                     // Computes tax 
                     var tax_rate = 0.045

@@ -2,7 +2,8 @@
 //Author - Sharon Diep 
 //Referenced from Smartphoneproducts labs and WODs
 //This page will be referenced in the products_page.html in order to be able to display the products. This page defines the products variable at the end. {
-var best_sellers = [
+
+var best_sellers = [ //product_type variable used in page referencing 
     {
         "model": "'Please Please Me' - The Beatles",
         "price": 21.00,
@@ -29,7 +30,7 @@ var best_sellers = [
         "image": "Thriller.png"
     }
 ];
-var limited_deals = [
+var limited_deals = [//product_type variable used in page referencing 
     {
         "model": "'Pet Sounds' - The Beach Boys",
         "price": 22.00,
@@ -47,7 +48,7 @@ var limited_deals = [
     }
 ];
 
-var new_arrivals = [
+var new_arrivals = [//product_type variable used in page referencing 
     {
         "model": "'Graceland' - Paul Simon<",
         "price": 25.00,
@@ -65,7 +66,7 @@ var new_arrivals = [
     }
 ];
 
-var the_classics = [
+var the_classics = [//product_type variable used in page referencing 
     {
         "model": "'Legend' - Bob Marley and the Wailers",
         "price": 30.00,
@@ -87,7 +88,7 @@ var the_classics = [
         "image": "Revolver.png"
     }
 ];
-
+//array of products 
 var allProducts = {
     "Best Sellers": best_sellers,
     "Limited Deals": limited_deals,

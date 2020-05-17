@@ -1,6 +1,8 @@
+<!--Author: Sharon Diep-->
+<!--This page codes for the email invoice to the user option after reaching the invoice, send user an email copy-->
 <script>
 
-    // Took code from https://nodemailer.com/smtp/
+    // referenced code from https://nodemailer.com/smtp/
     let transporter = nodemailer.createTransport(options[defaults])
     let poolConfig = "smtps://username:password@smtp.example.com/?pool=true";
     nodemailer.createTransport({

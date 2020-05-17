@@ -30,7 +30,7 @@ app.all('*', function (request, response, next) {
    next();
 });
 
-app.use(cookieParser());
+app.use(cookieParser()); //to use the cookies 
 
 if (fs.existsSync(filename)) {
    data = fs.readFileSync(filename, 'UTF-8');
@@ -49,8 +49,9 @@ function setCookie(cname, cvalue, exdays) {
    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=./";
 }
 //Referenced from w3schools "Javascript Cookies"
-function getCookie(cname) {
-   var name = cname + "=";
+//setting up the function to get the cookies and decoding them 
+function getCookie(cname) { 
+   var name = cname + "="; //name of users 
    var decodedCookie = decodedURIComponent(document.cookie);
    var ca = decodedCookie.split(';');
    for (var i = 0; i < ca.length; i++); {
@@ -78,8 +79,9 @@ function checkCookie() {
 }
 
 //sourced: lab 15
+//sets up the session we use to save quantities for the quart 
 app.use(session({
-   secret: 'itm352-assignment3-dport',
+   secret: 'itm352-assignment3-dport',//security purposes 
    resave: true, //save session
    saveUninitialized: false,
    httpOnly: true,
@@ -130,10 +132,10 @@ app.post("/process_page", function (request, response) {
          console.log("going to products page", has_errors);
          response.redirect(request.headers["referer"] + "?" + qstr);
       } else { //the quantity data is okay for the invoice
-         console.log("going to login page");
-         request.session[params.product_type] = params; 
-         console.log(request.session);
-         response.redirect("/shoppingcart.html?" + qstr);
+         request.session[params.product_type] = params; //requesting the product type in order to list it in the server 
+         console.log(request.session); //logs the console
+         alert("Added to cart!"); //tells the user their items have been added to the cart
+         response.redirect("/shoppingcart.html?" + qstr); //redirects the user to view the shopping cart after selecting their quantities 
       }
    }
 });
@@ -148,16 +150,16 @@ function isNonNegInt(q, returnErrors = false) {
    if (parseInt(q) != q) errors.push('This is Not an Integer!'); //check if value is a whole number
    return returnErrors ? errors : (errors.length == 0);
 }
-
-app.get("/shoppingcart.html", function (request, response) {
+//getting the values from the cartfile from the server and putting it into the cart 
+app.get("/shoppingcart.html", function (request, response) { 
    cartfile = `<script> var cart = ${JSON.stringify(request.session)}</script>`;
    cartfile += fs.readFileSync('./shoppingcart.html', 'UTF-8');
    response.send(cartfile);
 });
 
-app.post("/shoppingcart.html"), function (request, response) {
+//app.post("/shoppingcart.html"), function (request, response) {
+//}
 
-}
 app.post("/check_login", function (request, response) {
    // Process login form POST and redirect to logged in page if ok, back to login page if not
    console.log(request.query, request.body);
